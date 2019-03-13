@@ -15,7 +15,16 @@ class CreateItemsTable extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('name');
+            $table->string('item_pic');
+            $table->string('is_available');
+            $table->integer('price');
+            $table->text('description');
+            $table->integer('category_id');
+            $table->string('food_type');
             $table->timestamps();
+
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('set null');
         });
     }
 
