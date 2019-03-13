@@ -20,7 +20,7 @@ class CreateItemsTable extends Migration
             $table->string('is_available');
             $table->integer('price');
             $table->text('description');
-            $table->integer('category_id');
+            $table->bigInteger('category_id')->unsigned()->nullable();
             $table->string('food_type');
             $table->timestamps();
 

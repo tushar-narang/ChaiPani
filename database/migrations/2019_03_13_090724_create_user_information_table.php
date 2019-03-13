@@ -18,7 +18,7 @@ class CreateUserInformationTable extends Migration
             $table->string('profile_pic');
             $table->string('roll_number');
             $table->string('name');
-            $table->bigInteger('user_id');
+            $table->bigInteger('user_id')->unsigned()->index();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
