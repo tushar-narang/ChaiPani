@@ -14,4 +14,13 @@ class Item extends Model
     protected $fillable = [
         'name', 'item_pic', 'is_available', 'price', 'description', 'category_id', 'food_type',
     ];
+
+    public function category(){
+        return $this->hasOne('App\Category');
+    }
+
+    public function orders(){
+        return $this->hasMany('App\OrderItem');
+    }
+
 }

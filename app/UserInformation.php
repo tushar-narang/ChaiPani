@@ -14,4 +14,8 @@ class UserInformation extends Model
     protected $fillable = [
         'profile_pic', 'roll_number', 'name', 'user_id'
     ];
+
+    public function user() {
+        return $this->belongsTo('App\User');
+    }
 }
