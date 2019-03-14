@@ -14,3 +14,10 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::resource('/category', 'CategoryController');
+Route::resource('/user', 'UserController');
+Route::resource('/user/details', 'UserInformationController');
+Route::resource('/order', 'OrderController');
+Route::resource('/order/items','OrderItemController');
+
