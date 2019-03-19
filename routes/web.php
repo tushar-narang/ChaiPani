@@ -21,3 +21,7 @@ Route::resource('/user/details', 'UserInformationController');
 Route::resource('/order', 'OrderController');
 Route::resource('/order/items','OrderItemController');
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
