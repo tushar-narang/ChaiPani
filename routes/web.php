@@ -15,11 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('/category', 'CategoryController');
-Route::resource('/user', 'UserController');
-Route::resource('/user/details', 'UserInformationController');
-Route::resource('/order', 'OrderController');
-Route::resource('/order/items','OrderItemController');
+Route::resource('/category', 'CategoriesController');
+Route::resource('/user', 'UsersController');
+Route::resource('/order', 'OrdersController');
+Route::resource('/order/items','OrderItemsController');
 
 
 Auth::routes();
