@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Item;
 use Illuminate\Http\Request;
 
@@ -24,7 +25,8 @@ class ItemsController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+        return view('items.create', compact('categories'));
     }
 
     /**
