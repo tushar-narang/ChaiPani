@@ -14,7 +14,9 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::all();
+
+        return view('category.index', compact('categories'));
     }
 
     /**
@@ -35,7 +37,16 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name'  =>  'required|string|min:4|max:20|unique:categories'
+        ]);
+
+        $category = new Category([
+            'name'  =>  $request->get('name'),
+        ]);
+        $category->save();
+        flash('You Have Successfully Added '.$request->get('name'))->success();
+        return redirect('/category');
     }
 
     /**
@@ -80,6 +91,8 @@ class CategoriesController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        flash('Successfully Deleted The Category!')->success();
+        return redirect('/category');
     }
 }

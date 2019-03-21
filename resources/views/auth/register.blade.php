@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Register') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" enctype="multipart/form-data" action="{{ route('register') }}">
                         @csrf
 
                         <div class="form-group row">
@@ -26,14 +26,14 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Roll Number') }}</label>
+                            <label for="roll_no" class="col-md-4 col-form-label text-md-right">{{ __('Roll Number') }}</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
+                                <input id="roll_no" type="text" class="form-control{{ $errors->has('roll_no') ? ' is-invalid' : '' }}" name="roll_no" value="{{ old('roll_no') }}" required autofocus>
 
-                                @if ($errors->has('name'))
+                                @if ($errors->has('roll_no'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('name') }}</strong>
+                                        <strong>{{ $errors->first('roll_no') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -75,6 +75,22 @@
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            <label for="file-upload" class="col-md-4 col-form-label text-md-right">{{ __('File Upload') }}</label>
+                            <div class="col-md-6">
+                                <div class="custom-file">
+                                    <input type="file" name="profile_pic" class="custom-file-input" id="validatedCustomFile" required="">
+                                    <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
+                                    <div class="invalid-feedback">Example invalid custom file feedback</div>
+                                </div>
+                                @if ($errors->has('profile_pic'))
+                                    <span class="invalid-feedback {{ $errors->has('profile_pic') ? ' is-invalid' : '' }}" role="alert">
+                                        <strong>{{ $errors->first('profile_pic') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
@@ -89,3 +105,16 @@
     </div>
 </div>
 @endsection
+
+
+@section('custom_scripts')
+    <script type="application/javascript">
+        $(document).ready(function () {
+
+            $('input[type="file"]').change(function(e){
+                var fileName = e.target.files[0].name;
+                $('.custom-file-label').html(fileName);
+            });
+        })
+    </script>
+    @endsection

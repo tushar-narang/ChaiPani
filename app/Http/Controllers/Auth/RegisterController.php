@@ -65,10 +65,20 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $request = app('request');
+
+        if($request->hasfile('profile_pic')) {
+            $filename = $request->file('profile_pic')->store('profile_pic', 'public');
+        }
+
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'roll_no' => $data['roll_no'],
+            'profile_pic' => $filename,
+            'is_admin'  => 'no',
         ]);
+        return $user;
     }
 }

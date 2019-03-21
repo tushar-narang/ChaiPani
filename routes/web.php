@@ -19,7 +19,7 @@ Route::resource('/category', 'CategoriesController');
 Route::resource('/user', 'UsersController');
 Route::resource('/order', 'OrdersController');
 Route::resource('/order/items','OrderItemsController');
-
+Route::resource('/item', 'ItemsController');
 
 Auth::routes();
 

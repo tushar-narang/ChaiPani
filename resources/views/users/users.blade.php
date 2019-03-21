@@ -15,49 +15,20 @@
                 </tr>
                 </thead>
                 <tbody>
-                <!-- Row -->
-                <tr>
-                    <th scope="row" class="align-middle text-center">MT2018126</th>
-                    <td class="align"><div class="p-1"><img src="{{ URL::asset('images/users/1.jpg') }}" alt="user" width="26" class="rounded-circle"> Tushar</div></td>
-                    <td class="align-middle text-center"><p class="text-success">+ $10</p></td>
-                    <td class="align-middle text-center">
-                        <button type="button" class="btn btn-cyan btn-sm">View Report</button>
-                        <button type="button" class="btn btn-success btn-sm">Edit</button>
-                        <button type="button" class="btn btn-danger btn-sm">Delete</button></td>
-                </tr>
-                <!-- Row -->
-                <tr>
-                    <th scope="row" class="align-middle text-center">MT2018058</th>
-                    <td class="align-middle"><div class="p-1"><img src="{{ URL::asset('images/users/3.jpg') }}" alt="user" width="26" class="rounded-circle"> Manpreet Singh Tuteja</div></td>
-                    <td class="align-middle text-center"><p class="text-success">+ $60</p></td>
-                    <td class="align-middle text-center">
-                        <button type="button" class="btn btn-cyan btn-sm">View Report</button>
-                        <button type="button" class="btn btn-success btn-sm">Edit</button>
-                        <button type="button" class="btn btn-danger btn-sm">Delete</button></td>
-                </tr>
-                <!-- Row -->
-                <tr>
-                    <th scope="row" class="align-middle text-center">MT2018127</th>
-                    <td class="align-middle"><div class="p-1"><img src="{{ URL::asset('images/users/2.jpg') }}" alt="user" width="26" class="rounded-circle"> Tushar Narang</div></td>
-                    <td class="align-middle text-center"><p class="text-success">+ $20</p></td>
-                    <td class="align-middle text-center">
-                        <button type="button" class="btn btn-cyan btn-sm">View Report</button>
-                        <button type="button" class="btn btn-success btn-sm">Edit</button>
-                        <button type="button" class="btn btn-danger btn-sm">Delete</button></td>
-                </tr>
-                <!-- Row -->
-                <tr>
-                    <th scope="row" class="align-middle text-center">MT2018024</th>
-                    <td class="align-middle"><div class="p-1"><img src="{{ URL::asset('images/users/5.jpg') }}" alt="user" width="26" class="rounded-circle"> Bhavesh Gulecha</div></td>
-                    <td class="align-middle text-center"><p class="text-success">+ $60</p></td>
-                    <td class="align-middle text-center">
-                        <button type="button" class="btn btn-cyan btn-sm">View Report</button>
-                        <button type="button" class="btn btn-success btn-sm">Edit</button>
-                        <button type="button" class="btn btn-danger btn-sm">Delete</button></td>
-                </tr>
+                @foreach($users as $user)
+                    <!-- Row -->
+  v                  <tr>
+                        <th scope="row" class="align-middle text-center">{{ $user->roll_no }}</th>
+                        <td class="align"><div class="p-1"><img src="{{ Storage::url($user->profile_pic) }}" alt="user" width="26" height="26" class="rounded-circle">  <span style="margin-left: 5px;">{{ $user->name }}</span></div></td>
+                        <td class="align-middle text-center"><p class="text-success">+ $10</p></td>
+                        <td class="align-middle text-center">
+                            <button type="button" class="btn btn-cyan btn-sm">View Report</button>
+                            <button type="button" class="btn btn-success btn-sm">Edit</button>
+                            <button type="button" class="btn btn-danger btn-sm">Delete</button></td>
+                    </tr>
+                @endforeach
                 </tbody>
             </table>
-
-
+        </div>
     </div>
 </div>

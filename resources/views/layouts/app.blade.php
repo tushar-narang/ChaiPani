@@ -11,6 +11,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ URL::asset('libs/jquery/dist/jquery.min.js') }}"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -76,5 +77,7 @@
             @yield('content')
         </main>
     </div>
+
+@yield('custom_scripts')
 </body>
 </html>
