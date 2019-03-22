@@ -15,7 +15,8 @@ class ItemsController extends Controller
      */
     public function index()
     {
-        return view('items.index');
+        $items = Item::paginate(10);
+        return view('items.index', compact('items'));
     }
 
     /**
@@ -37,7 +38,36 @@ class ItemsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //Validate the input
+        $request->validate([
+            'name'  => 'required|string|min:6|unique:items',
+            'category' => 'required',
+            'item_pic'  => 'required',
+            'description'   => 'required|min:20',
+            'price' =>  'required|numeric',
+            'food_type' => ['required', 'in:veg,non-veg']
+        ]);
+        //Get The Category If It exists
+        $category = Category::findOrFail($request->category);
+
+        //Save The Item Image
+        if($request->hasfile('item_pic')) {
+            $filename = $request->file('item_pic')->store('item_pic', 'public');
+        }
+
+        //Store the input
+        $item = new Item([
+            'name'  =>  $request->get('name'),
+            'item_pic'  => $filename,
+            'description' => $request->get('description'),
+            'price' =>  $request->get('price'),
+            'food_type' =>  $request->get('food_type'),
+            'is_available'  =>  'yes',
+        ]);
+
+        $category = $category->items()->save($item);
+        flash('Successfully Added '.$request->get('name'))->success();
+        return redirect('/item');
     }
 
     /**
@@ -59,7 +89,8 @@ class ItemsController extends Controller
      */
     public function edit(Item $item)
     {
-        //
+        $categories = Category::all();
+        return view('items.edit', compact('item', 'categories'));
     }
 
     /**
@@ -71,7 +102,35 @@ class ItemsController extends Controller
      */
     public function update(Request $request, Item $item)
     {
-        //
+        $request->validate([
+            'name'  => 'required|string|min:6|unique:items,name,'.$item->id,
+            'category' => 'required',
+            'description'   => 'required|min:20',
+            'price' =>  'required|numeric',
+            'food_type' => ['required', 'in:veg,non-veg']
+        ]);
+
+        //Get The Category If It exists
+        $category = Category::findOrFail($request->get('category'));
+        $filename = "";
+        //Save The Item Image
+        if($request->hasfile('item_pic')) {
+            $filename = $request->file('item_pic')->store('item_pic', 'public');
+        } else {
+            $filename = $item->item_pic;
+        }
+
+        $item->category_id = $category->id;
+
+        $item->name = $request->get('name');
+        $item->description = $request->get('description');
+        $item->price = $request->get('price');
+        $item->food_type = $request->get('food_type');
+        $item->item_pic = $filename;
+        $item->save();
+
+        flash('Successfully updated '.$request->get('name'))->success();
+        return redirect('/item/'.$item->id.'/edit');
     }
 
     /**
@@ -83,5 +142,9 @@ class ItemsController extends Controller
     public function destroy(Item $item)
     {
         //
+        $item->delete();
+        flash('Successfully Deleted The Product!')->success();
+        return redirect('/item');
     }
+
 }

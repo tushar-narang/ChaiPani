@@ -2,5 +2,5 @@
 
 @section('content')
     @include('items.navigation')
-    @include('items.view')
+    @include('items.items')
 @endsection

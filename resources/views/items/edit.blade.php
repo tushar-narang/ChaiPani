@@ -10,14 +10,14 @@
                     <div class="card-header">{{ __('Add Product') }}</div>
 
                     <div class="card-body">
-                        <form method="POST" enctype="multipart/form-data" action="{{ route('item.store') }}">
+                        <form method="POST" enctype="multipart/form-data" action="{{ route('item.update', $item->id) }}">
                             @csrf
-
+                            @method('PATCH')
                             <div class="form-group row">
                                 <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
+                                    <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name')? old('name'):$item->name }}" required autofocus>
 
                                     @if ($errors->has('name'))
                                         <span class="invalid-feedback" role="alert">
@@ -31,12 +31,12 @@
                                 <label for="category" class="col-md-4 col-form-label text-md-right">{{ __('Category') }}</label>
                                 <div class="col-md-6">
 
-                                <select class="form-control {{ $errors->has('category') ? ' is-invalid' : '' }}" id="category" name="category">
-                                    @foreach($categories as $category)
-                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                    @endforeach
+                                    <select class="form-control {{ $errors->has('category') ? ' is-invalid' : '' }}" id="category" name="category">
+                                        @foreach($categories as $category)
+                                            <option value="{{ $category->id }}" {{ ($item->category()->exists())?(($item->category->id == $category->id)?"selected":""):"" }}>{{ $category->name }}</option>
+                                        @endforeach
 
-                                </select>
+                                    </select>
                                     @if ($errors->has('category'))
                                         <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('category') }}</strong>
@@ -49,7 +49,7 @@
                                 <label for="description" class="col-md-4 col-form-label text-md-right">{{ __('Description') }}</label>
                                 <div class="col-md-6">
 
-                                    <textarea class="form-control {{ $errors->has('description') ? ' is-invalid' : '' }}" id="description" name="description" rows="3"></textarea>
+                                    <textarea class="form-control {{ $errors->has('description') ? ' is-invalid' : '' }}" id="description" name="description" rows="3">{{old('description')?old('description'):$item->description }}</textarea>
                                     @if ($errors->has('description'))
                                         <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('description') }}</strong>
@@ -65,7 +65,7 @@
                                 <label for="price" class="col-md-4 col-form-label text-md-right">{{ __('Price') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="price" type="text" class="form-control{{ $errors->has('price') ? ' is-invalid' : '' }}" name="price" required>
+                                    <input id="price" type="text" class="form-control{{ $errors->has('price') ? ' is-invalid' : '' }}" name="price" value="{{ old('price')?old('price'):$item->price }}" required>
 
                                     @if ($errors->has('price'))
                                         <span class="invalid-feedback" role="alert">
@@ -81,7 +81,7 @@
                                 <label for="file-upload" class="col-md-4 col-form-label text-md-right">{{ __('Image Upload') }}</label>
                                 <div class="col-md-6">
                                     <div class="custom-file">
-                                        <input type="file" name="item_pic" class="custom-file-input" id="validatedCustomFile" required="">
+                                        <input type="file" name="item_pic" class="custom-file-input" id="validatedCustomFile" >
                                         <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
                                         <div class="invalid-feedback">Example invalid custom file feedback</div>
                                     </div>
@@ -97,8 +97,8 @@
                                 <div class="col-md-6">
 
                                     <select class="form-control {{ $errors->has('food_type') ? ' is-invalid' : '' }}" id="food_type" name="food_type">
-                                        <option value="veg">Vegetarian</option>
-                                        <option value="non-veg">Non - Vegetarian</option>
+                                        <option value="veg" {{ ($item->food_type == 'veg')?"selected":"" }}>Vegetarian</option>
+                                        <option value="non-veg" {{ ($item->food_type == 'non-veg')?"selected":"" }}>Non - Vegetarian</option>
                                     </select>
                                     @if ($errors->has('food_type'))
                                         <span class="invalid-feedback" role="alert">
@@ -111,7 +111,7 @@
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-primary">
-                                        {{ __('Add Product') }}
+                                        {{ __('Update Product') }}
                                     </button>
                                 </div>
                             </div>

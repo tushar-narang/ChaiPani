@@ -114,6 +114,7 @@
 <script src="{{ URL::asset('libs/flot.tooltip/js/jquery.flot.tooltip.min.js') }}"></script>
 <script src="{{ URL::asset('js/pages/chart/chart-page-init.js') }}"></script>
 
-</body>
+@yield('custom_scripts')
 
+</body>
 </html>
