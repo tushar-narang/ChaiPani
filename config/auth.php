@@ -42,9 +42,8 @@ return [
         ],
 
         'api' => [
-            'driver' => 'token',
+            'driver' => 'passport',
             'provider' => 'users',
-            'hash' => false,
         ],
     ],
 
@@ -99,5 +98,10 @@ return [
             'expire' => 60,
         ],
     ],
+
+    /**
+     * Laravel Passport based settings
+     */
+
 
 ];
