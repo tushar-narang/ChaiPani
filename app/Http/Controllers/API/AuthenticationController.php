@@ -26,8 +26,14 @@ class AuthenticationController extends BaseController
         if($validator->fails()){
             return $this->sendError('Validation Error.', $validator->errors());
         }
+
+        //Storing Image into EC2
         if($request->hasfile('profile_pic')) {
-            $filename = $request->file('profile_pic')->store('profile_pic', 'public');
+            //Storing the correct file name in the given folder
+            $filename = env('AWS_BUCKET')."/".time().".".$request->profile_pic->getClientOriginalExtension();
+            $image = $request->file('profile_pic');
+            Storage::disk('s3')->put($filename, file_get_contents($image), 'public');
+            $filename = Storage::disk('s3')->url(env('AWS_BUCKET')."/".$filename);
         }
 
         $user = User::create([

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -68,7 +69,11 @@ class RegisterController extends Controller
         $request = app('request');
 
         if($request->hasfile('profile_pic')) {
-            $filename = $request->file('profile_pic')->store('profile_pic', 'public');
+            //Save The Item Image
+            $filename = env('AWS_BUCKET')."/".time().".".$request->profile_pic->getClientOriginalExtension();
+            $image = $request->file('profile_pic');
+            Storage::disk('s3')->put($filename, file_get_contents($image), 'public');
+            $filename = Storage::disk('s3')->url(env('AWS_BUCKET')."/".$filename);
         }
 
         $user = User::create([

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Item;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ItemsController extends Controller
 {
@@ -49,10 +50,14 @@ class ItemsController extends Controller
         ]);
         //Get The Category If It exists
         $category = Category::findOrFail($request->category);
-
+        $filename = "";
         //Save The Item Image
         if($request->hasfile('item_pic')) {
-            $filename = $request->file('item_pic')->store('item_pic', 'public');
+            //Storing the correct file name in the given folder
+            $filename = env('AWS_BUCKET')."/".time().".".$request->item_pic->getClientOriginalExtension();
+            $image = $request->file('item_pic');
+            Storage::disk('s3')->put($filename, file_get_contents($image), 'public');
+            $filename = Storage::disk('s3')->url(env('AWS_BUCKET')."/".$filename);
         }
 
         //Store the input
@@ -115,7 +120,11 @@ class ItemsController extends Controller
         $filename = "";
         //Save The Item Image
         if($request->hasfile('item_pic')) {
-            $filename = $request->file('item_pic')->store('item_pic', 'public');
+            //Save The Item Image
+                $filename = env('AWS_BUCKET')."/".time().".".$request->item_pic->getClientOriginalExtension();
+                $image = $request->file('item_pic');
+                Storage::disk('s3')->put($filename, file_get_contents($image), 'public');
+                $filename = Storage::disk('s3')->url(env('AWS_BUCKET')."/".$filename);
         } else {
             $filename = $item->item_pic;
         }

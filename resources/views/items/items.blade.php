@@ -18,7 +18,7 @@
                 @foreach($items as $item)
                     <!-- Row -->
                     <tr>
-                        <td class="align-middle text-center"><div class="p-1"><img src="{{ Storage::url($item->item_pic) }}" alt="user" width="50" height="50" class="rounded-circle">  </div></td>
+                        <td class="align-middle text-center"><div class="p-1"><img src="{{ $item->item_pic }}" alt="user" width="50" height="50" class="rounded-circle">  </div></td>
                         <td class="align-middle text-center">{{ $item->name }}</td>
                         <td class="align-middle text-center">{{ ($item->category()->exists())?$item->category->name:"None" }}</td>
                         <td class="align-middle text-center">

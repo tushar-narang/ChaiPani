@@ -16,6 +16,13 @@ class Item extends Model
         'name', 'item_pic', 'is_available', 'price', 'description', 'category_id', 'food_type',
     ];
 
+    /**
+     * @var array
+     */
+    protected $visible = [
+        'name', 'item_pic', 'is_available', 'price', 'description', 'category_id', 'food_type',
+    ];
+
     public function category(){
         return $this->belongsTo('App\Category');
     }

@@ -17,6 +17,8 @@ Route::post('register', 'API\AuthenticationController@register');
 Route::post('login', 'API\AuthenticationController@login');
 Route::get('users', 'API\AuthenticationController@index');
 
+Route::resource('items', 'API\ItemsController');
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
