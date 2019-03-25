@@ -63,8 +63,12 @@ class AuthenticationController extends BaseController
             $success['token'] =  $user->createToken('MyApp')-> accessToken;
             return $this->sendResponse($success, 'User Logged In successfully.');
         } else {
-            return $this->sendResponse("Error", 'Invalid Credentials');
+            return $this->sendError("Error", 'Invalid Credentials', 500);
 
         }
+    }
+
+    public function index(){
+        return $this->sendResponse("Success", "Hi");
     }
 }
