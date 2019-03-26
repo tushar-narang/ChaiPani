@@ -10,19 +10,24 @@ use App\Http\Controllers\API\BaseController as BaseController;
 
 class CategoriesController extends BaseController
 {
-    //
+    /**
+     * @return \Illuminate\Http\Response
+     */
     public function index() {
         $categories = Category::all();
         return $this->sendResponse($categories, "Success");
     }
 
-    //Get a list of items for the given category
-
+    /**
+     * Get All items For That Particular Category.
+     * @param $id
+     * @return \Illuminate\Http\Response
+     */
     public function getItems($id) {
         $category = Category::find($id);
         if($category == null) {
             return $this->sendError("Invalid Category ID", "Error");
         }
-        return $this->sendResponse($category->items(), "Success");
+        return $this->sendResponse($category->items, "Success");
     }
 }

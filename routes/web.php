@@ -20,6 +20,7 @@ Route::resource('/user', 'UsersController');
 Route::resource('/order', 'OrdersController');
 Route::resource('/order/items','OrderItemsController');
 Route::resource('/item', 'ItemsController');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
