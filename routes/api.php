@@ -16,8 +16,10 @@ use Illuminate\Http\Request;
 Route::post('register', 'API\AuthenticationController@register');
 Route::post('login', 'API\AuthenticationController@login');
 Route::get('users', 'API\AuthenticationController@index');
-
 Route::resource('items', 'API\ItemsController');
+Route::get('categories', 'API\CategoriesController@index');
+Route::get('categories/{id}', 'API\CategoriesController@getItems');
+
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

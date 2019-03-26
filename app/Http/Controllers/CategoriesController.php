@@ -96,4 +96,6 @@ class CategoriesController extends Controller
         flash('Successfully Deleted The Category!')->success();
         return redirect('/category');
     }
+
+
 }

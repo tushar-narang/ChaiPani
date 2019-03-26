@@ -121,10 +121,10 @@ class ItemsController extends Controller
         //Save The Item Image
         if($request->hasfile('item_pic')) {
             //Save The Item Image
-                $filename = env('AWS_BUCKET')."/".time().".".$request->item_pic->getClientOriginalExtension();
-                $image = $request->file('item_pic');
-                Storage::disk('s3')->put($filename, file_get_contents($image), 'public');
-                $filename = Storage::disk('s3')->url(env('AWS_BUCKET')."/".$filename);
+            $filename = env('AWS_BUCKET')."/".time().".".$request->item_pic->getClientOriginalExtension();
+            $image = $request->file('item_pic');
+            Storage::disk('s3')->put($filename, file_get_contents($image), 'public');
+            $filename = Storage::disk('s3')->url(env('AWS_BUCKET')."/".$filename);
         } else {
             $filename = $item->item_pic;
         }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Category;
 use App\Item;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -14,6 +15,8 @@ class ItemsController extends BaseController
 
     public function index() {
         $items = Item::all();
-        return $this->sendResponse("Success", $items);
+        return $this->sendResponse($items, "Success");
     }
+
+
 }
