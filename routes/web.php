@@ -15,11 +15,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('/category', 'CategoriesController');
-Route::resource('/user', 'UsersController');
-Route::resource('/order', 'OrdersController');
-Route::resource('/order/items','OrderItemsController');
-Route::resource('/item', 'ItemsController');
+
+
+Route::middleware('auth:api')->group(function (){
+    Route::resource('/category', 'CategoriesController');
+    Route::resource('/user', 'UsersController');
+    Route::resource('/order', 'OrdersController');
+    Route::resource('/order/items','OrderItemsController');
+    Route::resource('/item', 'ItemsController');
+});
 
 Auth::routes();
 
