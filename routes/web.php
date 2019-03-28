@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 
 
-Route::middleware('auth:api')->group(function (){
+Route::middleware('auth')->group(function (){
     Route::resource('/category', 'CategoriesController');
     Route::resource('/user', 'UsersController');
     Route::resource('/order', 'OrdersController');
