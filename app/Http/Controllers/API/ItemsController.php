@@ -18,5 +18,12 @@ class ItemsController extends BaseController
         return $this->sendResponse($items, "Success");
     }
 
+    public function show($item) {
+        $product = Item::find($item);
+        if(is_null($product)){
+            return $this->sendError("Invalid Product ID ID", "Error");
+        }
 
+        return $this->sendResponse($product->toArray(), "Success");
+    }
 }

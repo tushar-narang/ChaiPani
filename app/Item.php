@@ -20,7 +20,7 @@ class Item extends Model
      * @var array
      */
     protected $visible = [
-        'name', 'item_pic', 'is_available', 'price', 'description', 'category_id', 'food_type',
+        'id','name', 'item_pic', 'is_available', 'price', 'description', 'category_id', 'food_type',
     ];
 
     public function category(){

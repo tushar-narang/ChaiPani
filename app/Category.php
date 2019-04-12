@@ -16,6 +16,10 @@ class Category extends Model
         'name',
     ];
 
+    protected $visible = [
+        'name', 'id'
+    ];
+
     public function items() {
         return $this->hasMany('App\Item');
     }

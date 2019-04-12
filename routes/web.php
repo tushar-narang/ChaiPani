@@ -22,8 +22,9 @@ Route::middleware('auth')->group(function (){
     Route::resource('/user', 'UsersController');
     Route::resource('/order', 'OrdersController');
     Route::resource('/order/items','OrderItemsController');
-    Route::resource('/item', 'ItemsController');
 });
+
+Route::resource('/item', 'ItemsController');
 
 Auth::routes();
 

@@ -19,7 +19,7 @@ Route::get('users', 'API\AuthenticationController@index');
 Route::resource('items', 'API\ItemsController');
 Route::get('categories', 'API\CategoriesController@index');
 Route::get('categories/{id}', 'API\CategoriesController@getItems');
-
+Route::get('items/{item}', 'API\ItemsController@show');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
