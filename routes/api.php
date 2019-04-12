@@ -20,6 +20,8 @@ Route::resource('items', 'API\ItemsController');
 Route::get('categories', 'API\CategoriesController@index');
 Route::get('categories/{id}', 'API\CategoriesController@getItems');
 Route::get('items/{item}', 'API\ItemsController@show');
+Route::post('orders', 'API\OrdersController@create');
+
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

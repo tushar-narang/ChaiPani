@@ -9,6 +9,6 @@ class OrdersController extends BaseController
 {
     //
     public function create(Request $request) {
-
+        return dd($request->json()->all());
     }
 }

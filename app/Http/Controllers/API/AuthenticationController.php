@@ -25,7 +25,7 @@ class AuthenticationController extends BaseController
         if($validator->fails()){
             return $this->sendError('Validation Error.', $validator->errors());
         }
-
+        $filename = "http://s3.us-east-2.amazonaws.com/chaipaniapp/chaipaniapp/1553547943.png";
         //Storing Image into EC2
         if($request->hasfile('profile_pic')) {
             //Storing the correct file name in the given folder
