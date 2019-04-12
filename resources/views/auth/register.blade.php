@@ -79,7 +79,7 @@
                             <label for="file-upload" class="col-md-4 col-form-label text-md-right">{{ __('File Upload') }}</label>
                             <div class="col-md-6">
                                 <div class="custom-file">
-                                    <input type="file" name="profile_pic" class="custom-file-input" id="validatedCustomFile" required="">
+                                    <input type="file" name="profile_pic" class="custom-file-input" id="validatedCustomFile" >
                                     <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
                                     <div class="invalid-feedback">Example invalid custom file feedback</div>
                                 </div>
