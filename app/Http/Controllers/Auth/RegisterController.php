@@ -68,6 +68,8 @@ class RegisterController extends Controller
     {
         $request = app('request');
 
+        $filename = "http://s3.us-east-2.amazonaws.com/chaipaniapp/chaipaniapp/1553547943.png";
+
         if($request->hasfile('profile_pic')) {
             //Save The Item Image
             $filename = env('AWS_BUCKET')."/".time().".".$request->profile_pic->getClientOriginalExtension();

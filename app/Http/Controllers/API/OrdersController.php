@@ -9,6 +9,7 @@ class OrdersController extends BaseController
 {
     //
     public function create(Request $request) {
-        return dd($request->json()->all());
+        $orderInformation = json_decode($request->json()->all(), true);
+        return dd($orderInformation['user_id']);
     }
 }
