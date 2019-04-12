@@ -20,7 +20,7 @@ class AuthenticationController extends BaseController
             'email' => 'required|email|max:255|unique:users|string',
             'password' => 'required|string|min:8',
             'roll_no' => 'required|string|min:8|max:10|unique:users',
-            'profile_pic' => 'required'
+            'profile_pic' => ''
         ]);
 
         if($validator->fails()){
