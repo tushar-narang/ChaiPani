@@ -15,6 +15,9 @@ class OrdersController extends Controller
     public function index()
     {
         //
+        $orders = Order::all();
+        $orders = $orders->whereNotIn('status', ['PENDING', 'CANCELLED'])->sortByDesc('updated_at');
+        return view('orders.index', compact('orders'));
     }
 
     /**

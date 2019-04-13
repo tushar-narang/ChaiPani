@@ -31,7 +31,22 @@ class OrdersController extends BaseController
             ]);
             $order->items()->save($orderItem);
         }
-        return $this->sendResponse("Success", 'User register successfully.');
+        return $this->sendResponse("Success", 'Order Placed Successfully.');
+    }
 
+    public function show($id) {
+        $order = Order::find($id);
+        if($order == null) {
+            return $this->sendError("Invalid Order ID", "Error");
+        }
+        return $this->sendResponse($order , "Success");
+    }
+
+    public function orderItems($id) {
+        $order = Order::find($id);
+        if($order == null) {
+            return $this->sendError("Invalid Order ID", "Error");
+        }
+        return $this->sendResponse($order->items()->get() , "Success");
     }
 }
