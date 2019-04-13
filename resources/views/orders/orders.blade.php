@@ -33,15 +33,30 @@
                             {{ $order->amount }}
                         </td>
                         <td class="align-middle text-center">
-                            <form action="{{route('order.accept',$order->id)}}" method="post">
-                                @csrf
-                                <button type="submit" class="btn btn-success btn-sm">Accept</button>
-                            </form>
-                            <form action="{{route('order.decline',$order->id)}}" method="post">
-                                @csrf
-                                <button type="submit" class="btn btn-danger btn-sm">Decline</button>
-                            </form>
+                            @if($order->order_status == "NOT ACCEPTED")
+                                <form action="{{route('order.accept',$order->id)}}" method="post">
+                                    @csrf
+                                    <button type="submit" class="btn btn-success btn-sm">Accept</button>
+                                </form>
+                                <form action="{{route('order.decline',$order->id)}}" method="post">
+                                    @csrf
+                                    <button type="submit" class="btn btn-danger btn-sm">Decline</button>
+                                </form>
+                            @endif
 
+                            @if($order->order_status == "ACCEPTED")
+                                 <form action="{{route('order.complete',$order->id)}}" method="post">
+                                     @csrf
+                                     <button type="submit" class="btn btn-success btn-sm">Completed</button>
+                                 </form>
+                            @endif
+
+                                @if($order->order_status == "READY")
+                                    <form action="{{route('order.finish',$order->id)}}" method="post">
+                                        @csrf
+                                        <button type="submit" class="btn btn-success btn-sm">Finished</button>
+                                    </form>
+                                @endif
                         </tr>
                 @endforeach
                 </tbody>

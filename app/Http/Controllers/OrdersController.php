@@ -16,7 +16,7 @@ class OrdersController extends Controller
     {
         //
         $orders = Order::all();
-        $orders = $orders->whereNotIn('status', ['PENDING', 'CANCELLED'])->sortByDesc('updated_at');
+        $orders = $orders->whereNotIn('order_status', ['DECLINED','FINISHED'])->sortByDesc('updated_at');
         return view('orders.index', compact('orders'));
     }
 
@@ -86,7 +86,41 @@ class OrdersController extends Controller
         //
     }
 
-    public function accept($id) {
+    public function accept(Order $order) {
+
+        $order->order_status = "ACCEPTED";
+        $order->save();
+
+        flash('Successfully Accepted The Order');
+        return redirect('/order');
 
     }
+
+    public function decline(Order $order) {
+        $order->order_status = "DECLINED";
+        $order->save();
+
+        flash('Successfully Declined The Order');
+        return redirect('/order');
+
+    }
+
+    public function complete(Order $order) {
+        $order->order_status = "READY";
+        $order->save();
+
+        flash('Successfully Completed The Order');
+        return redirect('/order');
+
+    }
+
+    public function finished(Order $order) {
+        $order->order_status = "FINISHED";
+        $order->save();
+
+        flash('Successfully Finished The Order');
+        return redirect('/order');
+
+    }
+
 }

@@ -23,6 +23,7 @@ Route::get('items/{item}', 'API\ItemsController@show');
 Route::post('orders', 'API\OrdersController@create');
 Route::get('orders/{id}', 'API\OrdersController@show');
 Route::get('orders/items/{id}', 'API\OrdersController@orderItems');
+Route::get('orders/user/{user}', 'API\OrdersController@getUserOrders');
 
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {

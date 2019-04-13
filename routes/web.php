@@ -22,8 +22,11 @@ Route::middleware('auth')->group(function (){
     Route::resource('/user', 'UsersController');
     Route::resource('/order', 'OrdersController');
     Route::resource('/order/items','OrderItemsController');
-    Route::post('/order/accept/{id}', 'OrdersController@accept')->name('order.accept');
-    Route::post('/order/decline/{id}', 'OrdersController@decline')->name('order.decline');
+    Route::post('/order/accept/{order}', 'OrdersController@accept')->name('order.accept');
+    Route::post('/order/decline/{order}', 'OrdersController@decline')->name('order.decline');
+    Route::post('/order/completed/{order}', 'OrdersController@complete')->name('order.complete');
+    Route::post('/order/finished/{order}', 'OrdersController@finished')->name('order.finish');
+
 });
 
 Route::resource('/item', 'ItemsController');

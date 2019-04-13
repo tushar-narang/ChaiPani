@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Order;
 use App\OrderItem;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -48,5 +49,11 @@ class OrdersController extends BaseController
             return $this->sendError("Invalid Order ID", "Error");
         }
         return $this->sendResponse($order->items()->get() , "Success");
+    }
+
+    public function getUserOrders(User $user) {
+        $orders = $user->orders->sortByDesc('updated_at');
+        return $this->sendResponse($orders , "Success");
+
     }
 }
