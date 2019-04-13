@@ -85,4 +85,8 @@ class OrdersController extends Controller
     {
         //
     }
+
+    public function accept($id) {
+
+    }
 }

@@ -33,9 +33,15 @@
                             {{ $order->amount }}
                         </td>
                         <td class="align-middle text-center">
+                            <form action="{{route('order.accept',$order->id)}}" method="post">
+                                @csrf
+                                <button type="submit" class="btn btn-success btn-sm">Accept</button>
+                            </form>
+                            <form action="{{route('order.decline',$order->id)}}" method="post">
+                                @csrf
+                                <button type="submit" class="btn btn-danger btn-sm">Decline</button>
+                            </form>
 
-                            <button type="button" class="btn btn-success btn-sm">Accept Order</button>
-                            <button type="button" class="btn btn-danger btn-sm">Delete</button></td>
                         </tr>
                 @endforeach
                 </tbody>

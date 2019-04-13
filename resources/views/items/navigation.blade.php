@@ -23,7 +23,7 @@
 
     <!-- column -->
     <div class="col-md-4 col-lg-4 col-xlg-4">
-        <a href="{{ route('category.index') }}"><div class="card card-hover">
+        <a href="{{ route('category.index') }}" id="category"><div class="card card-hover">
             <div class="box bg-cyan text-center">
                 <h1 class="font-light text-white"><i class="mdi mdi-basket"></i></h1>
                 <h6 class="text-white">Manage Category</h6>
