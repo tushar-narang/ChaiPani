@@ -26,7 +26,7 @@
                 </div>
                 <div class="border-top">
                     <div class="card-body">
-                        <button type="submit" id='submit' class="btn btn-primary">Add Category!</button>
+                        <button type="submit" id='add-category' class="btn btn-primary">Add Category!</button>
                     </div>
                 </div>
             </form>
