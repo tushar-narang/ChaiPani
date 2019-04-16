@@ -7,6 +7,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Validator;
 
 class AuthenticationController extends BaseController
@@ -65,9 +66,13 @@ class AuthenticationController extends BaseController
 
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){
             $user = Auth::user();
+            $clientIP = \Request::getClientIp(true);
             $success['token'] =  $user->createToken('MyApp')-> accessToken;
+            Log::emergency("User : ".$request['email']." has logged in from IP: ".$clientIP);
             return $this->sendResponse($success, 'User Logged In successfully.');
         } else {
+            $clientIP = \Request::getClientIp(true);
+            Log::emergency("Failed Attempt To Log into  : ".$request['email']." From IP: ".$clientIP);
             return $this->sendError("Error", 'Invalid Credentials', 500);
 
         }
