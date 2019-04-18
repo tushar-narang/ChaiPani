@@ -123,4 +123,13 @@ class OrdersController extends Controller
 
     }
 
+    public function userDisabled(Order $order) {
+        $order->order_status = "INCOMPLETE";
+        $order->save();
+
+        flash('Successfully Finished The Order');
+        return redirect('/order');
+
+    }
+
 }

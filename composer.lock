@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ca5c31a1f9399ccc6bc44eb5797b757c",
+    "content-hash": "360e1509035f053fc275129f205e4d6e",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -1593,6 +1593,40 @@
                 "server"
             ],
             "time": "2018-11-21T21:42:43+00:00"
+        },
+        {
+            "name": "maras0830/laravel-logslack",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Maras0830/laravel-log-slack.git",
+                "reference": "6466aaad817388a32a095020b0b180b22430c37a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Maras0830/laravel-log-slack/zipball/6466aaad817388a32a095020b0b180b22430c37a",
+                "reference": "6466aaad817388a32a095020b0b180b22430c37a",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^5.1.0",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Maras0830\\LogSlack\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Maras0830",
+                    "email": "Maras0830@gmail.com"
+                }
+            ],
+            "description": "Send logs to slack channel.",
+            "time": "2018-09-03T09:30:52+00:00"
         },
         {
             "name": "monolog/monolog",

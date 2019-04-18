@@ -69,10 +69,14 @@ class AuthenticationController extends BaseController
             $clientIP = \Request::getClientIp(true);
             $success['token'] =  $user->createToken('MyApp')-> accessToken;
             Log::emergency("User : ".$request['email']." has logged in from IP: ".$clientIP);
+            Log::debug('Slack Log ', ['Slack' => 'Hello']);
+
             return $this->sendResponse($success, 'User Logged In successfully.');
         } else {
             $clientIP = \Request::getClientIp(true);
             Log::emergency("Failed Attempt To Log into  : ".$request['email']." From IP: ".$clientIP);
+            Log::emergency('Slack Log ', ['Slack' => 'Hello']);
+
             return $this->sendError("Error", 'Invalid Credentials', 500);
 
         }
