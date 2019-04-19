@@ -15,7 +15,7 @@ class AddFineToUsers extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
-            $table->integer('fine');
+            $table->integer('fine')->default(0);
         });
     }
 
