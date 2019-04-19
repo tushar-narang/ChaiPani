@@ -26,6 +26,7 @@ Route::middleware('auth')->group(function (){
     Route::post('/order/decline/{order}', 'OrdersController@decline')->name('order.decline');
     Route::post('/order/completed/{order}', 'OrdersController@complete')->name('order.complete');
     Route::post('/order/finished/{order}', 'OrdersController@finished')->name('order.finish');
+    Route::post('/order/fine/{order}', 'OrdersController@userDisabled')->name('order.fine');
 
 });
 

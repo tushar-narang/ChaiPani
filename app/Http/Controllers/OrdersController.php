@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Logger;
 use App\Order;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OrdersController extends Controller
 {
@@ -16,7 +19,7 @@ class OrdersController extends Controller
     {
         //
         $orders = Order::all();
-        $orders = $orders->whereNotIn('order_status', ['DECLINED','FINISHED'])->sortByDesc('updated_at');
+        $orders = $orders->whereNotIn('order_status', ['DECLINED','FINISHED','INCOMPLETE'])->sortByDesc('updated_at');
         return view('orders.index', compact('orders'));
     }
 
@@ -91,6 +94,14 @@ class OrdersController extends Controller
         $order->order_status = "ACCEPTED";
         $order->save();
 
+        $user = User::findOrFail($order->user->id);
+        $clientIP = \Request::getClientIp(true);
+        $userLog = Logger::create([
+            'email' =>  $user->email,
+            'ip_address' => $clientIP,
+            'action'    => "Success : ".$user->name."'s Order Has Been Accepted by ".Auth::user()->name,
+        ]);
+
         flash('Successfully Accepted The Order');
         return redirect('/order');
 
@@ -99,6 +110,14 @@ class OrdersController extends Controller
     public function decline(Order $order) {
         $order->order_status = "DECLINED";
         $order->save();
+
+        $user = User::findOrFail($order->user->id);
+        $clientIP = \Request::getClientIp(true);
+        $userLog = Logger::create([
+            'email' =>  $user->email,
+            'ip_address' => $clientIP,
+            'action'    => "Success : ".$user->name."'s Order Has Been Declined by ".Auth::user()->name,
+        ]);
 
         flash('Successfully Declined The Order');
         return redirect('/order');
@@ -109,6 +128,13 @@ class OrdersController extends Controller
         $order->order_status = "READY";
         $order->save();
 
+        $user = User::findOrFail($order->user->id);
+        $clientIP = \Request::getClientIp(true);
+        $userLog = Logger::create([
+            'email' =>  $user->email,
+            'ip_address' => $clientIP,
+            'action'    => "Success : ".$user->name."'s Order Has Been Completed by ".Auth::user()->name,
+        ]);
         flash('Successfully Completed The Order');
         return redirect('/order');
 
@@ -118,6 +144,14 @@ class OrdersController extends Controller
         $order->order_status = "FINISHED";
         $order->save();
 
+        $user = User::findOrFail($order->user->id);
+        $clientIP = \Request::getClientIp(true);
+        $userLog = Logger::create([
+            'email' =>  $user->email,
+            'ip_address' => $clientIP,
+            'action'    => "Success : ".$user->name."'s Order Has Been picked up",
+        ]);
+
         flash('Successfully Finished The Order');
         return redirect('/order');
 
@@ -126,7 +160,17 @@ class OrdersController extends Controller
     public function userDisabled(Order $order) {
         $order->order_status = "INCOMPLETE";
         $order->save();
+        $user = User::find($order->user->id);
+        $user->fine = $user->fine + $order->amount;
+        $user->save();
 
+        $user = User::findOrFail($order->user->id);
+        $clientIP = \Request::getClientIp(true);
+        $userLog = Logger::create([
+            'email' =>  $user->email,
+            'ip_address' => $clientIP,
+            'action'    => "Success : ".$user->name."'s did not receive their order",
+        ]);
         flash('Successfully Finished The Order');
         return redirect('/order');
 

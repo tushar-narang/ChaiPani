@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\API\BaseController as BaseController;
+use App\Logger;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -70,13 +71,21 @@ class AuthenticationController extends BaseController
             $success['token'] =  $user->createToken('MyApp')-> accessToken;
             Log::emergency("User : ".$request['email']." has logged in from IP: ".$clientIP);
             Log::debug('Slack Log ', ['Slack' => 'Hello']);
-
+            $userLog = Logger::create([
+                'email' =>  $request['email'],
+                'ip_address' => $clientIP,
+                'action'    => "Success : User has successfully logged in."
+            ]);
             return $this->sendResponse($success, 'User Logged In successfully.');
         } else {
             $clientIP = \Request::getClientIp(true);
-            Log::emergency("Failed Attempt To Log into  : ".$request['email']." From IP: ".$clientIP);
-            Log::emergency('Slack Log ', ['Slack' => 'Hello']);
 
+            Log::emergency("Failed Attempt To Log into  : ".$request['email']." From IP: ".$clientIP);
+            $userLog = Logger::create([
+                'email' =>  $request['email'],
+                'ip_address' => $clientIP,
+                'action'    => "Success : User has successfully logged in."
+            ]);
             return $this->sendError("Error", 'Invalid Credentials', 500);
 
         }
@@ -84,5 +93,9 @@ class AuthenticationController extends BaseController
 
     public function index(){
         return $this->sendResponse("Success", "Hi");
+    }
+
+    public function getLogs() {
+        return Logger::all()->sortByDesc('updated_at')->toJson(JSON_PRETTY_PRINT);
     }
 }

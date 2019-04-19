@@ -23,6 +23,7 @@ class OrdersController extends BaseController
             'order_status' => "NOT ACCEPTED",
             'amount' => $result['amount']
         ]);
+        $user = User::findOrFail($userId);
         $order->save();
         foreach ($result['product_orders'] as $item) {
 
@@ -32,6 +33,13 @@ class OrdersController extends BaseController
             ]);
             $order->items()->save($orderItem);
         }
+        $clientIP = \Request::getClientIp(true);
+        $userLog = Logger::create([
+            'email' =>  $user->email,
+            'ip_address' => $clientIP,
+            'action'    => "Success : ".$user->name." has placed an order ".$order->id,
+        ]);
+
         return $this->sendResponse("Success", 'Order Placed Successfully.');
     }
 
@@ -40,6 +48,7 @@ class OrdersController extends BaseController
         if($order == null) {
             return $this->sendError("Invalid Order ID", "Error");
         }
+
         return $this->sendResponse($order , "Success");
     }
 

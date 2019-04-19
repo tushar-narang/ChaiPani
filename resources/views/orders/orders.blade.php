@@ -54,7 +54,12 @@
                                 @if($order->order_status == "READY")
                                     <form action="{{route('order.finish',$order->id)}}" method="post">
                                         @csrf
-                                        <button type="submit" class="btn btn-success btn-sm">Finished</button>
+                                        <button type="submit" class="btn btn-success btn-sm">Delivered</button>
+                                    </form>
+
+                                    <form action="{{route('order.fine',$order->id)}}" method="post">
+                                        @csrf
+                                        <button type="submit" class="btn btn-danger btn-sm">Missing</button>
                                     </form>
                                 @endif
                         </tr>
