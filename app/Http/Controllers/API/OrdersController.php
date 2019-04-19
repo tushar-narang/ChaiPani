@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Logger;
 use App\Order;
 use App\OrderItem;
 use App\User;
@@ -23,7 +24,7 @@ class OrdersController extends BaseController
             'order_status' => "NOT ACCEPTED",
             'amount' => $result['amount']
         ]);
-        $user = User::findOrFail($userId);
+        $user = User::find($userId);
         $order->save();
         foreach ($result['product_orders'] as $item) {
 
