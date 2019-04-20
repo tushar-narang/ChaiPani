@@ -95,6 +95,6 @@ class AuthenticationController extends BaseController
     }
 
     public function getLogs() {
-        return Logger::all()->toJson();
+        return Logger::all()->toJson(JSON_PRETTY_PRINT);
     }
 }
