@@ -25,6 +25,7 @@ Route::get('orders/{id}', 'API\OrdersController@show');
 Route::get('orders/items/{id}', 'API\OrdersController@orderItems');
 Route::get('orders/user/{user}', 'API\OrdersController@getUserOrders');
 Route::get('logs', 'API\AuthenticationController@getLogs');
+Route::post('changePassword', 'API\AuthenticationController@changePassword');
 
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {

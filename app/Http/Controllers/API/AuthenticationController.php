@@ -90,6 +90,41 @@ class AuthenticationController extends BaseController
         }
     }
 
+    //
+    public function changePassword(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email|max:255',
+            'password' => 'required|string|min:8',
+            'newpassword' => 'required|string|min:8',
+        ]);
+
+        if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){
+            $user = Auth::user();
+            $user->password = bcrypt($request['newpassword']);
+            $user->save();
+            $clientIP = \Request::getClientIp(true);
+            $success['token'] =  $user->createToken('MyApp')-> accessToken;
+            Log::emergency("User : ".$request['email']." has changed the password IP: ".$clientIP);
+            $userLog = Logger::create([
+                'email' =>  $request['email'],
+                'ip_address' => $clientIP,
+                'action'    => "Success : User has successfully changed the password."
+            ]);
+            return $this->sendResponse($success, 'User changed password successfully.');
+        } else {
+            $clientIP = \Request::getClientIp(true);
+
+            Log::emergency("Failed Attempt To change password into  : ".$request['email']." From IP: ".$clientIP);
+            $userLog = Logger::create([
+                'email' =>  $request['email'],
+                'ip_address' => $clientIP,
+                'action'    => "Success : User has failed to change password."
+            ]);
+            return $this->sendError("Error", 'Invalid Credentials', 500);
+
+        }
+    }
+
     public function index(){
         return $this->sendResponse("Success", "Hi");
     }
