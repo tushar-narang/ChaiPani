@@ -130,7 +130,7 @@ class AuthenticationController extends BaseController
     }
 
     public function getLogs() {
-        return Logger::all()->toJson();
+        return "{\"root\":".Logger::all()->toJson()."}";
 //        $jsonString = "{";
 //        foreach ($logger as $log) {
 //            $jsonString = $jsonString."\"0\": { \"email\": \"".$log->email."\", \"ip_address\": \"".$log->ip_address."\"},";
