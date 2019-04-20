@@ -38,7 +38,7 @@ class OrdersController extends BaseController
         $userLog = Logger::create([
             'email' =>  $user->email,
             'ip_address' => $clientIP,
-            'action'    => "Success : ".$user->name." has placed an order ".$order->id,
+            'action'    => "Success : ".$user->name." has placed an order of amount ".$order->amount,
         ]);
 
         return $this->sendResponse("Success", 'Order Placed Successfully.');

@@ -95,6 +95,6 @@ class AuthenticationController extends BaseController
     }
 
     public function getLogs() {
-        return Logger::all()->sortByDesc('updated_at')->toJson(JSON_PRETTY_PRINT);
+        return Logger::all();
     }
 }
