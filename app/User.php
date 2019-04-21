@@ -38,7 +38,9 @@ class User extends Authenticatable
         'name', 'email', 'password','profile_pic', 'roll_no', 'is_admin', 'id','fine'
     ];
 
-
+    /**
+     * Some small changes
+     */
 
     /**
      * The attributes that should be cast to native types.
