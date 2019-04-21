@@ -23,7 +23,7 @@ class Logger extends Model
      */
 
     /*
-     * Some small changes
+     * Some small changes done here Hope it works
      */
     protected $visible = [
         'email', 'ip_address', 'action', 'created_at'
