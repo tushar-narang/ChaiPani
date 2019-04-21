@@ -131,9 +131,9 @@ class AuthenticationController extends BaseController
 
     public function getLogs() {
         $logger = Logger::all();
-        $jsonString = "{";
+        $jsonString = "";
         foreach ($logger as $log) {
-            $jsonString = $jsonString.$logger->created_at." - ".$logger->ip_address." | ".$logger->action."\n";
+            $jsonString = $jsonString.$log->created_at." - ".$log->ip_address." | ".$log->action."\n";
         }
 
         return $jsonString;
