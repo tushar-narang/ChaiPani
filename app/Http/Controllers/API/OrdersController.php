@@ -63,6 +63,7 @@ class OrdersController extends BaseController
 
     public function getUserOrders(User $user) {
         $orders = $user->orders->sortByDesc('updated_at');
+
         return $this->sendResponse($orders , "Success");
 
     }
