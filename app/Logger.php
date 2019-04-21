@@ -21,6 +21,10 @@ class Logger extends Model
     /**
      * @var array
      */
+
+    /*
+     * Some small changes
+     */
     protected $visible = [
         'email', 'ip_address', 'action', 'created_at'
     ];
