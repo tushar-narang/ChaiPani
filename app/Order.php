@@ -16,7 +16,7 @@ class Order extends Model
         'user_id', 'order_status', 'amount',
     ];
     protected $visible = [
-        'user_id', 'order_status', 'amount',
+        'user_id', 'order_status', 'amount', 'id', 'created_at'
     ];
 
     public function user() {
